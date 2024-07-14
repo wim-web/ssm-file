@@ -1,0 +1,17 @@
+[package]
+name = "sscp"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = { version = "1.1.7", features = ["behavior-version-latest"] }
+aws-sdk-s3 = "1.41.0"
+aws-sdk-ssm = "1.39.0"
+clap = { version = "4.5.9", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+slog-json = "2.6.1"
+slog = "2.7.0"
+slog-async = "2.8.0"
+async-trait = "0.1.81"
