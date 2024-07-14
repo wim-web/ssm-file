@@ -17,8 +17,12 @@ resource "aws_iam_role" "ssm_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "ssm_attach" {
+  for_each = toset([
+    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+    "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+  ])
   role       = aws_iam_role.ssm_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  policy_arn = each.key
 }
 
 resource "aws_iam_instance_profile" "ssm_profile" {
@@ -33,7 +37,8 @@ resource "aws_instance" "example" {
   subnet_id                   = aws_subnet.public.id
   iam_instance_profile        = aws_iam_instance_profile.ssm_profile.name
   associate_public_ip_address = true
-  security_groups             = [aws_security_group.allow_ssm.id]
+  vpc_security_group_ids      = [aws_security_group.allow_ssm.id]
+
 }
 
 resource "aws_security_group" "allow_ssm" {

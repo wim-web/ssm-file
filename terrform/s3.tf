@@ -1,6 +1,6 @@
-# S3バケット (パブリックアクセス禁止)
 resource "aws_s3_bucket" "example" {
-  bucket = "0xb02efd083189edae326587e448755249dbdd3b2a7b9c47f41e"
+  bucket        = var.bucket_name
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "example_sse" {
